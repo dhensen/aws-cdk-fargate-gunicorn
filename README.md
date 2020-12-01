@@ -18,3 +18,10 @@ uvicorn api:app --reload
 cd cdk_stack
 # TODO replace requirements.txt by pyproject.toml
 ```
+
+## Docker
+
+```
+docker build -f app/Dockerfile -t fargate-app app
+docker run -p8000:8000 fargate-app:latest
+```
