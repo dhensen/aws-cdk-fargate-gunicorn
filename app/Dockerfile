@@ -1,6 +1,6 @@
 FROM python:3.8.6-alpine3.12@sha256:09b31747042d2b4445d222481b326a089207dfe2007df0a3c00d0662d010d73a
 
-RUN apk add --virtual build-dependencies build-base libffi-dev openssl-dev
+RUN apk --no-cache add --virtual build-dependencies build-base libffi-dev openssl-dev
 
 RUN pip3 install poetry
 RUN mkdir /app
@@ -11,6 +11,8 @@ RUN POETRY_VIRTUALENVS_IN_PROJECT=true poetry install --no-dev
 COPY api.py /app
 
 RUN apk del build-dependencies
+
+EXPOSE 8000
 
 # CMD [ "/app/.venv/bin/python3", "-m", "uvicorn", "--host", "0.0.0.0", "api:app" ]
 # Benchmarker with: wrk -t100 -c200 http://127.0.0.1:8000
