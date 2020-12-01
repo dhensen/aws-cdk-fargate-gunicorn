@@ -5,7 +5,7 @@ from aws_cdk import core
 from aws_cdk import aws_ecs_patterns as ecs_patterns
 
 
-class AppStack(core.NestedStack):
+class AppStack(core.Stack):
     def __init__(self, scope: core.Construct, id: str, cluster: ecs.Cluster,
                  public_load_balancer: elbv2.ApplicationLoadBalancer,
                  **kwargs) -> None:
@@ -18,6 +18,7 @@ class AppStack(core.NestedStack):
             "MyFastApi",
             cluster=cluster,
             load_balancer=public_load_balancer,
+            assign_public_ip=True,
             task_image_options=ecs_patterns.
             ApplicationLoadBalancedTaskImageOptions(
                 image=asset_image,
